@@ -100,6 +100,44 @@ void clrscr()
 {
     system("@cls||clear");
 }
+void login(){
+    // int choice;
+    // while(1){
+        int id;
+        char password[30],name[30]='',userId[30]='',pass[30]='';
+        printf("\n\n Enter your id:\n");
+        scanf("%d",&id);
+        printf("\n Enter your password:\n");
+        scanf("%s",password);
+        // check if id and password is correct from the users.csv file
+        file = fopen("users.csv","r");
+        do{
+            fscanf(file,"%s,%s,%d\n",&name,&pass,&userId);
+
+        }while(false);
+        fclose(file);
+        if(id == userId && strcmp(password,pass) == 0){
+            // call the view course menu function
+        }else{
+            // handle the login error
+        }
+        // printf("Enter a selection : ");
+        // scanf("%d",&choice);
+        // switch (choice){
+        //     case 1:
+        //         generateUser();
+        //         break;
+        //     case 2:
+        //         voteCount();
+        //         break;
+        //     case 0:
+        //         break;
+        //     default:
+        //         printf("invalid choice!!\n");
+        //         break;
+        // }
+    // }
+}
 int generateId(){
     int id;
     do{
@@ -164,10 +202,10 @@ void registration(){
         scanf("%d",&choice);
         switch (choice){
             case 1:
-                generateUser();
+                generateUser(1);
                 break;
             case 2:
-                voteCount();
+                generateUser(2);
                 break;
             case 0:
                 break;
@@ -198,7 +236,7 @@ int main(int argc, char const *argv[])
                 registration();
                 break;
             case 2:
-                voteCount();
+                login();
                 break;
             case 0:
                 exit(0);
