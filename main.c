@@ -14,8 +14,7 @@ void viewCourses(){
     printf("\n ## Please work to successed ##\n\n\n");
     FILE* fp = fopen("selectedCourses.csv", "r");
         if (!fp)
-            printf("\n\nCan't open file\n");
-
+            setError("\n\nCan't open file\n");
         else {
             char buffer[1024];
 
@@ -52,7 +51,7 @@ void viewCourses(){
 void saveToSelected(int option, int credits){
     FILE* fp = fopen("courses.csv", "r");
     if (!fp)
-        printf("Can't open file\n");
+        setError("Can't open file\n");
 
     else {
         char buffer[1024];
@@ -79,7 +78,7 @@ void saveToSelected(int option, int credits){
         // Close the file
         fclose(fp);
         header();
-        printf("Done saving course\n\n");
+        setSuccess("Done saving course\n\n");
         getCourses();
     }
 }
@@ -91,8 +90,7 @@ void header(){
 void getCourses(){
     FILE* fp = fopen("courses.csv", "r");
         if (!fp)
-            printf("\n\nCan't open file\n");
-
+            setError("\n\nCan't open file\n");
         else {
             char buffer[1024];
 
@@ -145,7 +143,7 @@ void selectCourses(){
                         clrscr();
                         header();
                         getCourses();
-                        printf("Not arrowed to repeat!\n\n");
+                        setError("Not arrowed to repeat!\n\n");
                         flag=1;
                         break;
                     }else{
@@ -164,7 +162,7 @@ void selectCourses(){
             }
             FILE* fp = fopen("courses.csv", "r");
             if (!fp)
-                printf("Can't open file\n");
+                setError("Can't open file\n");
 
             else {
                 char buffer[1024];
@@ -197,7 +195,7 @@ void selectCourses(){
                 // Close the file
                 fclose(fp);
             if (copyCredits > 21){
-                printf("\nYou have exceeded the maximum credits\n");
+                setError("\nYou have exceeded the maximum credits\n");
                 printf("Click 0 to exit");
                 copyCredits = cred;
             }else{
@@ -235,7 +233,7 @@ void userMenu(){
             break;
         default:
             clrscr();
-            printf("\n\nInvalid selection!!\n");
+            setError("\n\nInvalid selection!!\n");
             break;
         }
     }
@@ -257,8 +255,7 @@ void login(){
         FILE* fp = fopen("users.csv", "r");
 
         if (!fp)
-            printf("Can't open file\n");
-
+            setError("Can't open file\n");
         else {
             char buffer[1024];
 
@@ -295,7 +292,7 @@ void login(){
                 choice = 0;
             }else{
                 clrscr();
-                printf("\n\nWrong ID and password, try again!\n");
+                setError("\n\nWrong ID and password, try again!\n");
             }
         }
     }
@@ -329,10 +326,10 @@ void generateUser(int typ){
             fprintf(file,"%d,%s,%s\n",id,pass,name);
             fclose(file);
             clrscr();
-            printf("\n\nYou have been successfully registred!\n");
+            setSuccess("\n\nYou have been successfully registred!\n");
             printf("Please note, your ID is: %d", id);
         }else{
-            printf("\n\nYour Password doesn't match, try again\n");
+            setError("\n\nYour Password doesn't match, try again\n");
         }
 
     }
@@ -351,12 +348,22 @@ void generateUser(int typ){
             fprintf(file,"%d,%s,%s\n",id,pass,name);
             fclose(file);
             clrscr();
-            printf("\n\nYou have been successfully registred!\n");
+            setSuccess("\n\nYou have been successfully registred!\n");
             printf("Please note, your ID is: %d", id);
         }else{
-            printf("\n\nYour Password doesn't match, try again\n");
+            setError("\n\nYour Password doesn't match, try again\n");
         }
     }
+}
+void setSuccess(char* txt){
+    printf("\033[0;32m");
+    printf("%s",txt);
+    printf("\033[0m");
+}
+void setError(char* txt){
+    printf("\033[31m");
+    printf("%s",txt);
+    printf("\033[0m");
 }
 
 void registration(){
@@ -399,10 +406,6 @@ void starting(){
         printf("\n\n 1. Register\n");
         printf("\n 2. Login\n");
         printf("\n 0. Exit\n");
-    //     printf("\033[31mred text\n");
-    //   printf("\033[33;44m yellow on blue \n");
-    //   printf("\033[33;44m  ------------- \n");
-    //   printf("\033[0mdefault colors\n");
 
         printf("\nSelect One : ");
         scanf("%d",&choice);
